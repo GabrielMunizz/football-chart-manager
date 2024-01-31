@@ -13,6 +13,7 @@ class TeamRoute {
 
   private setupRoutes(): void {
     this.router.get('/teams', this.teamController.getAllTeams.bind(this.teamController));
+    this.router.get('/teams/:id', this.teamController.getTeam.bind(this.teamController));
   }
 
   getRouter() {

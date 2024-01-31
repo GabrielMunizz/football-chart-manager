@@ -45,4 +45,17 @@ describe('Testes da rota /teams', () => {
     expect(res).to.have.status(200);
     expect(res.body).to.be.an('array');
   });
+
+  it('Deve retornar um time ao executar o método GET em "/teams/id"', async () => {
+    const res = await chai.request(app).get('/teams/1');
+
+    expect(res).to.have.status(200);
+    expect(res.body).to.be.an('object');
+    expect(res.body).to.be.deep.equal(
+      {
+        id: 1,
+        teamName: "Avaí/Kindermann"
+      }
+    )
+  });
 });
