@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
+describe('Testes da rota /teams', () => {
   /**
    * Exemplo do uso de stubs com tipos
    */
@@ -39,7 +39,10 @@ describe('Seu teste', () => {
   //   expect(...)
   // });
 
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+  it('Deve retornar o resultado esperado ao executar o método GET em "/teams"', async () => {
+    const res = await chai.request(app).get('/teams');
+
+    expect(res).to.have.status(200);
+    expect(res.body).to.be.an('array');
   });
 });
