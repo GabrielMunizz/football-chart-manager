@@ -12,7 +12,10 @@ class LoginRoute {
   }
 
   private setupRoutes() {
-    this.router.post('/login', this.userController.validateUser.bind(this.userController));
+    this.router.post(
+      '/login',
+      this.userController.validateUser.bind(this.userController),
+    );
   }
 
   getRouter() {

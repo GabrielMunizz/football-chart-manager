@@ -1,3 +1,4 @@
+import validateLogin from '../../utils/validateLogin';
 import jwtValidate from '../../utils/jwtValidate';
 import comparePasswords from '../../utils/comparePasswords';
 import { IUser } from '../../Interfaces/IUsers';
@@ -17,16 +18,17 @@ class UserService {
   ): Promise<ServiceResponse> {
     const { password, email } = user;
 
-    if (!email || !password) return { status: 400, data: { message: 'All fields must be filled' } };
+    const invalidLogin = await validateLogin(email as string, password);
+
+    if (invalidLogin) return { status: invalidLogin.status, data: invalidLogin.data };
 
     this.user = await UserModel.findOne({ where: { email } });
+
+    if (!this.user) return { status: 401, data: { message: 'Invalid email or password' } };
+
     const match = await comparePasswords(password, this.user?.password as string);
-    if (!this.user || !match) {
-      return {
-        status: 401,
-        data: { message: 'Username or password invalid' },
-      };
-    }
+
+    if (!match) return { status: 401, data: { message: 'Invalid email or password' } };
 
     const token = jwtValidate.sign({ id: this.user.id, email: this.user.email });
     return { status: 200, data: { token } };
