@@ -22,7 +22,7 @@ class ValidateToken {
     if (!token) return res.status(missingToken.status).json(missingToken.data);
 
     try {
-      const decodedToken = jwtValidate.verify(token);
+      const decodedToken = ValidateToken.decodeToken(token, res);
 
       if (typeof decodedToken !== 'object') {
         return res.status(invalidToken.status).json(invalidToken.data);
@@ -46,6 +46,16 @@ class ValidateToken {
       status: 401,
       data: { message: 'Token must be a valid token' },
     };
+  }
+
+  private static decodeToken(token: string, res:Response) {
+    try {
+      const decodedToken = jwtValidate.verify(token);
+      res.locals.auth = decodedToken;
+      return decodedToken;
+    } catch (error) {
+      throw new Error();
+    }
   }
 }
 

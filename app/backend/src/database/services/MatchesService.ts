@@ -17,6 +17,19 @@ class MatchesService {
     });
     return this.matches;
   }
+
+  async matchesFilter(query: string | undefined) {
+    const matches = await this.getMatches();
+    if (query === 'true') {
+      const inProgress = matches.filter((match) => match.inProgress === true);
+      return { status: 200, data: inProgress };
+    }
+    if (query === 'false') {
+      const finished = matches.filter((match) => match.inProgress === false);
+      return { status: 200, data: finished };
+    }
+    return { status: 200, data: matches };
+  }
 }
 
 export default MatchesService;

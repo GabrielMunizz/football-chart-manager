@@ -13,6 +13,7 @@ class MatchRoute {
 
   setupRoutes() {
     this.router.get('/matches', this.matchesController.getAllMatches.bind(this.matchesController));
+    this.router.patch('/matches/:id/finish');
   }
 
   getRouter() {
