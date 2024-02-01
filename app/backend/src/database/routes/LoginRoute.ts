@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import ValidateToken from '../../middlewares/validateToken';
 import UserController from '../controllers/UserController';
 
 class LoginRoute {
@@ -12,6 +13,11 @@ class LoginRoute {
   }
 
   private setupRoutes() {
+    this.router.get(
+      '/login/role',
+      ValidateToken.validate,
+      this.userController.getRole.bind(this.userController),
+    );
     this.router.post(
       '/login',
       this.userController.validateUser.bind(this.userController),

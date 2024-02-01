@@ -11,7 +11,7 @@ interface ServiceResponse {
 
 class UserService {
   private user: IUser | null = null;
-
+  private role = '';
   async logUser(
     user: Omit<IUser, 'role' | 'id' | 'username'>,
   ): Promise<ServiceResponse> {
@@ -29,8 +29,19 @@ class UserService {
 
     if (invalidPassword) return invalidPassword;
 
-    const token = jwtValidate.sign({ id: this.user.id, email: this.user.email });
+    const token = jwtValidate.sign(
+      { id: this.user.id, email: this.user.email, role: this.user.role },
+    );
     return { status: 200, data: { token } };
+  }
+
+  getRole(token: string) {
+    const { role } = jwtValidate.verify(token);
+    this.role = role;
+    return {
+      status: 200,
+      data: this.role,
+    };
   }
 
   private static validate(email: string, password: string) {

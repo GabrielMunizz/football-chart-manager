@@ -5,6 +5,7 @@ const secret = process.env.JWT_SECRET || 'secret';
 interface TokenPayload {
   id: number,
   email: string,
+  role: string,
 }
 
 const sign = (payload: TokenPayload): string => {
