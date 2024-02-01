@@ -24,6 +24,11 @@ class MatchRoute {
       ValidateToken.validate,
       MatchesController.updateMatch.bind(this.matchesController),
     );
+    this.router.post(
+      '/matches',
+      ValidateToken.validate,
+      MatchesController.createMatch.bind(this.matchesController),
+    );
   }
 
   getRouter() {

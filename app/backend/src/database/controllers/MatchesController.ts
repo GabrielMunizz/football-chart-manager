@@ -31,6 +31,14 @@ class MatchesController {
 
     return res.status(status).json(data);
   }
+
+  static async createMatch(req: Request, res: Response) {
+    const matchInfo = req.body;
+
+    const { status, data } = await MatchesService.insertMatch(matchInfo);
+
+    return res.status(status).json(data);
+  }
 }
 
 export default MatchesController;

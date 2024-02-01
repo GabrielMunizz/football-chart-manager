@@ -51,6 +51,16 @@ class MatchesService {
     }
     return { status: 200, data: { message: `Match id: ${id} score updated!` } };
   }
+
+  static async insertMatch(matchInfo: Omit<IMatches, 'id' | 'inProgress'>) {
+    const newMatch = { ...matchInfo, inProgress: true };
+    const insertedMatch = await MatchesModel.create(newMatch);
+
+    return {
+      status: 201,
+      data: insertedMatch,
+    };
+  }
 }
 
 export default MatchesService;
