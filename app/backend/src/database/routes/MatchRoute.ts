@@ -15,6 +15,11 @@ class MatchRoute {
   setupRoutes() {
     this.router.get('/matches', this.matchesController.getAllMatches.bind(this.matchesController));
     this.router.patch(
+      '/matches/:id',
+      ValidateToken.validate,
+      MatchesController.updateInProgressMatch.bind(this.matchesController),
+    );
+    this.router.patch(
       '/matches/:id/finish',
       ValidateToken.validate,
       MatchesController.updateMatch.bind(this.matchesController),

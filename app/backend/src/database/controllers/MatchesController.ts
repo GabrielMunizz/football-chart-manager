@@ -23,6 +23,14 @@ class MatchesController {
 
     return res.status(match.status).json(match.data);
   }
+
+  static async updateInProgressMatch(req: Request, res: Response) {
+    const { id } = req.params;
+    const score = req.body;
+    const { status, data } = await MatchesService.updateMatchScore(Number(id), score);
+
+    return res.status(status).json(data);
+  }
 }
 
 export default MatchesController;

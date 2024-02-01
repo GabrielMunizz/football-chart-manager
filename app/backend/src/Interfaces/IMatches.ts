@@ -6,3 +6,8 @@ export interface IMatches {
   awayTeamGoals: number,
   inProgress: boolean,
 }
+
+export interface UpdateScore {
+  homeTeamGoals: number,
+  awayTeamGoals: number,
+}

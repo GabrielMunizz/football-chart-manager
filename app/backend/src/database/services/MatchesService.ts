@@ -1,4 +1,4 @@
-import { IMatches } from '../../Interfaces/IMatches';
+import { IMatches, UpdateScore } from '../../Interfaces/IMatches';
 import MatchesModel from '../models/MatchesModel';
 import TeamModel from '../models/TeamsModel';
 
@@ -40,6 +40,16 @@ class MatchesService {
       return { status: 404, data: { message: 'Match not found' } };
     }
     return { status: 200, data: { message: 'Finished' } };
+  }
+
+  static async updateMatchScore(id: number, score: UpdateScore) {
+    const rowCount = await MatchesModel.update(score, {
+      where: { id },
+    });
+    if (rowCount[0] === 0) {
+      return { status: 404, data: { message: 'Match not found' } };
+    }
+    return { status: 200, data: { message: `Match id: ${id} score updated!` } };
   }
 }
 
