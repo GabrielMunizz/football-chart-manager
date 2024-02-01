@@ -30,6 +30,17 @@ class MatchesService {
     }
     return { status: 200, data: matches };
   }
+
+  static async finishMatch(id: number) {
+    const finishedMatch = { inProgress: false };
+    const rowCount = await MatchesModel.update(finishedMatch, {
+      where: { id },
+    });
+    if (rowCount[0] === 0) {
+      return { status: 404, data: { message: 'Match not found' } };
+    }
+    return { status: 200, data: { message: 'Finished' } };
+  }
 }
 
 export default MatchesService;

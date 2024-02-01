@@ -16,6 +16,13 @@ class MatchesController {
 
     return res.status(status).json(data);
   }
+
+  static async updateMatch(req: Request, res: Response) {
+    const { id } = req.params;
+    const match = await MatchesService.finishMatch(Number(id));
+
+    return res.status(match.status).json(match.data);
+  }
 }
 
 export default MatchesController;

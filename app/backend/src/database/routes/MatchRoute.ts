@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import ValidateToken from '../../middlewares/validateToken';
 import MatchesController from '../controllers/MatchesController';
 
 class MatchRoute {
@@ -13,7 +14,11 @@ class MatchRoute {
 
   setupRoutes() {
     this.router.get('/matches', this.matchesController.getAllMatches.bind(this.matchesController));
-    this.router.patch('/matches/:id/finish');
+    this.router.patch(
+      '/matches/:id/finish',
+      ValidateToken.validate,
+      MatchesController.updateMatch.bind(this.matchesController),
+    );
   }
 
   getRouter() {
