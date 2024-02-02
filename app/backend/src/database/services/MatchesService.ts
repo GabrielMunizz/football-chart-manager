@@ -1,4 +1,4 @@
-import { IMatches, UpdateScore } from '../../Interfaces/IMatches';
+import { IMatches, UpdateScore, FormattedMatch } from '../../Interfaces/IMatches';
 import MatchesModel from '../models/MatchesModel';
 import TeamModel from '../models/TeamsModel';
 import TeamService from './TeamService';
@@ -11,7 +11,7 @@ class MatchesService {
     this.teamService = new TeamService();
   }
 
-  async getMatches(): Promise<IMatches[]> {
+  async getMatches(): Promise<FormattedMatch[]> {
     this.matches = await MatchesModel.findAll({
       include: [
         { model: TeamModel, as: 'homeTeam', attributes: ['teamName'], foreignKey: 'home_team_id' },
@@ -21,7 +21,7 @@ class MatchesService {
         exclude: ['home_team_id', 'away_team_id'],
       },
     });
-    return this.matches;
+    return this.matches as FormattedMatch[];
   }
 
   async matchesFilter(query: string | undefined) {
