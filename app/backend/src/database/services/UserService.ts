@@ -57,7 +57,9 @@ class UserService {
   }
 
   private async checkPassword(password: string) {
-    const match = await comparePasswords(password, this.user?.password as string);
+    if (!this.user) return UserService.serviceResponseBuilder(401) as ServiceResponse;
+
+    const match = await comparePasswords(password, this.user.password as string);
 
     if (!match) return UserService.serviceResponseBuilder(401) as ServiceResponse;
 

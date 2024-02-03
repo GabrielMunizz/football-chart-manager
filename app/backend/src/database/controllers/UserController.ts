@@ -16,8 +16,8 @@ class UserController {
   }
 
   getRole(req: Request, res: Response) {
-    const { authorization } = req.headers;
-    const token = authorization?.split(' ')[1];
+    const auth = req.headers.authorization as string;
+    const token = auth.split(' ')[1];
 
     const { status, data } = this.userService.getRole(token as string);
 
