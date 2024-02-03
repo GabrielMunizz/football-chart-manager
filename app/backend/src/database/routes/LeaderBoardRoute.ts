@@ -1,20 +1,20 @@
 import { Router } from 'express';
-import LeaderBoardController from '../controllers/LeaderBoardController';
+import HomeGamesController from '../controllers/HomeGamesController';
 
 class LeaderBoardRouter {
   private router: Router;
-  private leaderBoardController: LeaderBoardController;
+  private homeGamesController: HomeGamesController;
 
   constructor() {
     this.router = Router();
-    this.leaderBoardController = new LeaderBoardController();
+    this.homeGamesController = new HomeGamesController();
     this.setupRouter();
   }
 
   setupRouter() {
     this.router.get(
       '/leaderboard/home',
-      this.leaderBoardController.getLeaderBoard.bind(this.leaderBoardController),
+      this.homeGamesController.getLeaderBoard.bind(this.homeGamesController),
     );
   }
 
