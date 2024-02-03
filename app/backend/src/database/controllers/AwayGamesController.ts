@@ -8,7 +8,7 @@ class AwayGamesController {
     this.awayGamesController = new AwayGamesService();
   }
 
-  async getLeaderBoard(req: Request, res: Response) {
+  async getLeaderBoard(_req: Request, res: Response) {
     const leaderBoard = await this.awayGamesController.sortTeams();
 
     return res.status(200).json(leaderBoard);
