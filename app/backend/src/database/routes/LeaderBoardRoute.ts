@@ -19,16 +19,19 @@ class LeaderBoardRouter {
 
   setupRouter() {
     this.router.get(
-      '/leaderboard',
-      this.allGamesController.getLeaderboard.bind(this.allGamesController),
-    );
-    this.router.get(
-      '/leaderboard/home',
+      '/home',
       this.homeGamesController.getLeaderBoard.bind(this.homeGamesController),
     );
     this.router.get(
-      '/leaderboard/away',
+      '/away',
       this.awayGamesController.getLeaderBoard.bind(this.awayGamesController),
+    );
+    this.router.get(
+      '/',
+      this.allGamesController.getAllLeaderboard.bind(this.allGamesController),
+      // (req, res) => {
+      //   this.allGamesController.getAllLeaderboard(req, res);
+      // },
     );
   }
 

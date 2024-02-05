@@ -20,7 +20,7 @@ class App {
     this.app.use(new TeamRoute().getRouter());
     this.app.use(new LoginRoute().getRouter());
     this.app.use(new MatchRoute().getRouter());
-    this.app.use(new LeaderBoardRouter().getRouter());
+    this.app.use('/leaderboard', new LeaderBoardRouter().getRouter());
 
     // Não remova esse middleware de erro, mas fique a vontade para customizá-lo
     // Mantenha ele sempre como o último middleware a ser chamado
