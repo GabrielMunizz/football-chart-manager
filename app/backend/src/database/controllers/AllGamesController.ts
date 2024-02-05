@@ -8,7 +8,7 @@ class AllGamesController {
     this.allGamesService = new AllGamesService();
   }
 
-  async getLeaderboard(_req:Request, res: Response) {
+  async getLeaderboard(req:Request, res: Response) {
     const leaderBoard = await this.allGamesService.sortTeams();
     return res.status(200).json(leaderBoard);
   }

@@ -11,9 +11,9 @@ class LeaderBoardRouter {
 
   constructor() {
     this.router = Router();
+    this.allGamesController = new AllGamesController();
     this.homeGamesController = new HomeGamesController();
     this.awayGamesController = new AwayGamesController();
-    this.allGamesController = new AllGamesController();
     this.setupRouter();
   }
 

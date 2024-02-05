@@ -52,14 +52,6 @@ class AllGamesService {
     return ties.length;
   }
 
-  async allGames() {
-    const allWin = await this.getAllWinners();
-    const allTies = await this.getAllTies();
-    const allLosses = await this.getAllLosers();
-    const total = [...allWin, ...allTies, ...allLosses];
-    return total;
-  }
-
   // ALLGAMES
 
   async getAllWinners() {
@@ -80,6 +72,14 @@ class AllGamesService {
     const awayTies = await this.awayGamesServices.getAwayTies();
 
     return [...homeTies, ...awayTies];
+  }
+
+  async allGames() {
+    const allWin = await this.getAllWinners();
+    const allTies = await this.getAllTies();
+    const allLosses = await this.getAllLosers();
+    const total = [...allWin, ...allTies, ...allLosses];
+    return total;
   }
 
   // LEADERBOARD BUILDERS
