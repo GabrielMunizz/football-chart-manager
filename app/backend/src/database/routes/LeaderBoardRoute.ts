@@ -1,37 +1,29 @@
 import { Router } from 'express';
-import HomeGamesController from '../controllers/HomeGamesController';
-import AwayGamesController from '../controllers/AwayGamesController';
-import AllGamesController from '../controllers/AllGamesController';
+import LeaderBoardController from '../controllers/LeaderBoardController';
 
 class LeaderBoardRouter {
   private router: Router;
-  private homeGamesController: HomeGamesController;
-  private awayGamesController: AwayGamesController;
-  private allGamesController: AllGamesController;
+  private leaderBoardController: LeaderBoardController;
 
   constructor() {
     this.router = Router();
-    this.allGamesController = new AllGamesController();
-    this.homeGamesController = new HomeGamesController();
-    this.awayGamesController = new AwayGamesController();
+    this.leaderBoardController = new LeaderBoardController();
+
     this.setupRouter();
   }
 
   setupRouter() {
     this.router.get(
       '/home',
-      this.homeGamesController.getLeaderBoard.bind(this.homeGamesController),
+      this.leaderBoardController.getHomeLeaderBoard.bind(this.leaderBoardController),
     );
     this.router.get(
       '/away',
-      this.awayGamesController.getLeaderBoard.bind(this.awayGamesController),
+      this.leaderBoardController.getAwayLeaderBoard.bind(this.leaderBoardController),
     );
     this.router.get(
       '/',
-      this.allGamesController.getAllLeaderboard.bind(this.allGamesController),
-      // (req, res) => {
-      //   this.allGamesController.getAllLeaderboard(req, res);
-      // },
+      this.leaderBoardController.getLeaderBoard.bind(this.leaderBoardController),
     );
   }
 

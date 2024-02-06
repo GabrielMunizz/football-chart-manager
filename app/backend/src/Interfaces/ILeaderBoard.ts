@@ -26,3 +26,5 @@ export interface Infos {
   goalsOwn: number,
   totalPoints: number,
 }
+
+export type CategoryType = 'home' | 'away';
