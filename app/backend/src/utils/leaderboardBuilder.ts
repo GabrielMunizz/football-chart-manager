@@ -28,46 +28,26 @@ class LeaderBoardBuilder {
   }
 
   async calculateGames(category: CategoryType | undefined, teamName: string): Promise<number> {
-    if (category) {
-      const matches = await this.allGamesByCategory(category);
-      const games = matches.filter((match) => match.teamName === teamName);
-      return games.length;
-    }
-    const matches = await this.allGames();
+    const matches = category ? await this.allGamesByCategory(category) : await this.allGames();
     const games = matches.filter((match) => match.teamName === teamName);
     return games.length;
   }
 
   async calculateVictories(category: CategoryType | undefined, teamName: string): Promise<number> {
-    if (category) {
-      const matches = await this.getWinners(category);
-      const victories = matches
-        .filter((match) => match.teamName === teamName);
-      return victories.length;
-    }
-    const matches = await this.getAllWinners();
-    const victories = matches.filter((match) => match.teamName === teamName);
+    const matches = category ? await this.getWinners(category) : await this.getAllWinners();
+    const victories = matches
+      .filter((match) => match.teamName === teamName);
     return victories.length;
   }
 
   async calculateLosses(category: CategoryType | undefined, teamName: string): Promise<number> {
-    if (category) {
-      const matches = await this.getLosses(category);
-      const teamLosses = matches.filter((match) => match.teamName === teamName);
-      return teamLosses.length;
-    }
-    const matches = await this.getAllLosers();
+    const matches = category ? await this.getLosses(category) : await this.getAllLosers();
     const teamLosses = matches.filter((match) => match.teamName === teamName);
     return teamLosses.length;
   }
 
   async calculateTies(category: CategoryType | undefined, teamName: string): Promise<number> {
-    if (category) {
-      const matches = await this.getTies(category);
-      const ties = matches.filter((match) => match.teamName === teamName);
-      return ties.length;
-    }
-    const matches = await this.getAllTies();
+    const matches = category ? await this.getTies(category) : await this.getAllTies();
     const ties = matches.filter((match) => match.teamName === teamName);
     return ties.length;
   }

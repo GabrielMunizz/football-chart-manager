@@ -36,17 +36,10 @@ class LeaderBoardService {
   }
 
   async leaderBoardPromiseBuilder(category: CategoryType | undefined, infos: Infos[]) {
-    if (category) {
-      const leaderBoardPromise = infos.map(async (info) => {
-        const calculate = await this.calculate(category, info);
-        const goalsBalance = LeaderBoardBuilder.getGoalsBalance(info.goalsFavor, info.goalsOwn);
-        const efficiency = LeaderBoardBuilder.getEfficiency(info.totalPoints, calculate.totalGames);
-        return { ...info, ...calculate, goalsBalance, efficiency };
-      });
-      return leaderBoardPromise;
-    }
     const leaderBoardPromise = infos.map(async (info) => {
-      const calculate = await this.calculate(undefined, info);
+      const calculate = category
+        ? await this.calculate(category, info)
+        : await this.calculate(undefined, info);
       const goalsBalance = LeaderBoardBuilder.getGoalsBalance(info.goalsFavor, info.goalsOwn);
       const efficiency = LeaderBoardBuilder.getEfficiency(info.totalPoints, calculate.totalGames);
       return { ...info, ...calculate, goalsBalance, efficiency };
